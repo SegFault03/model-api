@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 import joblib
 import json
 import numpy
@@ -14,7 +15,7 @@ async def getPrediction(sample: str) -> str:
     data = numpy.array(data)
     data = scaler.transform(data.reshape(1,-1))
     result = model.predict(data)
-    return json.dumps(result.tolist())
+    return JSONResponse(result.tolist())
 
 @app.get('/sayhi')
 async def wakeUp() -> str:
